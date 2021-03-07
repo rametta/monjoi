@@ -1,0 +1,32 @@
+{
+  "name": "monjoi",
+  "version": "1.0.0",
+  "description": "MongoDB + Joi",
+  "author": "Jason Rametta",
+  "license": "BSD-3-Clause",
+  "private": false,
+  "sideEffects": false,
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rametta/monjoi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rametta/monjoi/issues"
+  },
+  "homepage": "https://github.com/rametta/monjoi#readme",
+  "keywords": [
+    "mongodb",
+    "joi"
+  ],
+  "dependencies": {
+    "joi": "^17.4.0",
+    "mongodb": "^3.6.4"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.6.8"
+  }
+}
