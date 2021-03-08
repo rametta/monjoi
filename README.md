@@ -10,6 +10,7 @@
 - Schema's with [Joi](https://joi.dev)
 - Pre and Post Hooks (a.k.a Plugins)
 - Pagination _// TODO_
+- Partial Schema Validation for Updates _// TODO_
 - Automatic Timestamp insertion / updating _// TODO_
 
 ## Install
