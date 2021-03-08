@@ -1,4 +1,4 @@
-import mongo, { CollectionInsertOneOptions, OptionalId, WithId } from 'mongodb'
+import { CollectionInsertOneOptions, OptionalId, WithId, Db, Collection } from 'mongodb'
 import Joi from 'joi'
 
 type NonEmptyArray<T> = [T, ...T[]]
@@ -8,18 +8,26 @@ type HookMap = {
   post?: NonEmptyArray<Hook>
 }
 type Hooks = {
-  [key in keyof mongo.Collection]?: HookMap
+  [key in keyof Collection]?: HookMap
 }
 
 const asyncPipe = <T>(funcs: ((a?: any) => any)[]) => (input?: any): Promise<T> =>
   funcs.reduce((acc, func) => acc.then(func), Promise.resolve(input))
 
+type InsertOne<T> = {
+  insertOne: (doc: OptionalId<T>, options?: CollectionInsertOneOptions) => Promise<WithId<T>>
+}
+
+type Paginate = {
+  paginate: () => any
+}
+
 export const collection = <T>(name: string, schema: Joi.Schema<T>, hooks?: Hooks) => (
-  db: mongo.Db
-) => {
+  db: Db
+): Omit<Collection<T>, 'writeConcern' | 'insertOne'> & InsertOne<T> & Paginate => {
   const col = db.collection<T>(name)
 
-  const useHooks = async <K>(op: keyof mongo.Collection, func: () => Promise<K>): Promise<K> => {
+  const useHooks = async <K>(op: keyof Collection, func: () => Promise<K>): Promise<K> => {
     const preHooks = hooks?.[op]?.pre
     if (preHooks?.length) {
       await asyncPipe(preHooks)()

@@ -1,4 +1,6 @@
-# Monjoi
+[![npm](https://img.shields.io/npm/v/monjoi.svg)](http://npm.im/monjoi)
+
+# 🐦 Monjoi
 
 > Monjoi - A lightweight alternative to [Mongoose](https://mongoosejs.com/).
 
@@ -9,6 +11,16 @@
 - Pre and Post Hooks (a.k.a Plugins)
 - Pagination _// TODO_
 - Automatic Timestamp insertion / updating _// TODO_
+
+## Install
+
+```sh
+npm i monjoi
+
+# or with Yarn
+
+yarn add monjoi
+```
 
 \* Monjoi has peer dependencies on [Joi](https://joi.dev) and [node mongodb driver](https://www.npmjs.com/package/mongodb).
 
@@ -68,7 +80,9 @@ class PersonService {
 There are 2 types of hooks available:
 
 1. Pre Hooks - Functions that execute **before** running the db access
-2. Post Hooks - Functions that execute **after** runing the db access
+2. Post Hooks - Functions that execute **after** running the db access
+
+Hooks can return regular values or even Promises.
 
 #### Pre hooks
 
@@ -76,7 +90,7 @@ Useful for triggering other operations before accessing the db. If a hook return
 
 #### Post hooks
 
-Useful for formatting response or triggering other operations. Post hooks should generally return objects because they will be passed to the next hook.
+Useful for formatting db responses or triggering other operations. Post hooks should generally **return** objects because they will be passed to the next hook.
 
 Any hook that **returns a rejected promise** will cancel the hook chain.
 
